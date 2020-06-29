@@ -7,7 +7,6 @@ import java.io.ByteArrayInputStream;
 
 public class test {
     public static void main(String[] ages) {
-        System.out.println("刘园-17140120097\n");
         testM();
     }
 
