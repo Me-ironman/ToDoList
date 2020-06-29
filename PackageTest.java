@@ -10,11 +10,11 @@ import java.lang.reflect.Field;
 import static org.junit.Assert.*;
 
 public class PackageTest {
-   
+    private static int actual = 0;
     @Test
     public void testadd_item() throws Exception {
         String input = "case1";
-        int actual = Package.getSize();
+        //actual = Package.getSize();
         InputStream stdin = System.in;
         try{
             System.setIn(new ByteArrayInputStream(input.getBytes()));
@@ -23,7 +23,7 @@ public class PackageTest {
             System.setIn(stdin);
         }
         assertEquals(1,actual+1);
-
+        actual = 0;
     }
 
     @Test
@@ -31,7 +31,7 @@ public class PackageTest {
         String input1 = "case1";
         String input2 = "case2";
         String input3 = "1";
-        int actual = Package.getSize();
+        int actual1 = Package.getSize();
         InputStream stdin = System.in;
         try{
             System.setIn(new ByteArrayInputStream(input1.getBytes()));
@@ -39,15 +39,16 @@ public class PackageTest {
             System.setIn(new ByteArrayInputStream(input2.getBytes()));
             Package.add_item(input2);
             actual = Package.getSize();
-            assertEquals(2,actual);
+            assertEquals(2,actual-actual1);
             System.setIn(new ByteArrayInputStream(input3.getBytes()));
             Package.delete_item();
 
         }finally {
             System.setIn(stdin);
         }
-        actual = Package.getSize();
-        assertEquals(1,actual);
+        int actual2 = Package.getSize();
+        assertEquals(1,actual-actual2);
+        actual = 0;
     }
 
     @Test
@@ -55,7 +56,7 @@ public class PackageTest {
         String input1 = "case1";
         String input2 = "case2";
         String input3 = "2";
-        int actual = Package.getSize();
+        //int actual = Package.getSize();
         InputStream stdin = System.in;
         try{
             System.setIn(new ByteArrayInputStream(input1.getBytes()));
@@ -69,6 +70,7 @@ public class PackageTest {
         }finally {
             System.setIn(stdin);
         }
+        actual = 0;
 
     }
 
@@ -78,7 +80,7 @@ public class PackageTest {
         String input2 = "case2";
         String input3 = "case3";
         String input4 = "1";
-        int actual = Package.getSize();
+        int actual1 = Package.getSize();
         InputStream stdin = System.in;
         try{
             System.setIn(new ByteArrayInputStream(input1.getBytes()));
@@ -88,7 +90,7 @@ public class PackageTest {
             System.setIn(new ByteArrayInputStream(input3.getBytes()));
             Package.add_item(input3);
             actual = Package.getSize();
-            assertEquals(3,actual);
+            assertEquals(3,actual-actual1);
             System.setIn(new ByteArrayInputStream(input4.getBytes()));
             Package.finish_item();
             System.out.println("---------全部打印----------");
@@ -100,6 +102,8 @@ public class PackageTest {
         }finally {
             System.setIn(stdin);
         }
+    actual = 0;
     }
+
 
 }
